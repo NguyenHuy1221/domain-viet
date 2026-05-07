@@ -111,7 +111,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
-  const navItems = [
+  const navItems: Array<{ to: string; label: string; icon: string; exact?: boolean }> = [
     { to: "/", label: "Tổng quan", icon: "📊", exact: true },
     { to: "/domains", label: "Domain", icon: "🌐" },
     { to: "/customers", label: "Khách hàng", icon: "👥" },
@@ -121,7 +121,7 @@ function RootComponent() {
     { to: "/invoices", label: "Hóa đơn", icon: "🧾" },
     { to: "/reports", label: "Báo cáo", icon: "📈" },
     { to: "/settings", label: "Cài đặt", icon: "⚙️" },
-  ] as const;
+  ];
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -135,7 +135,7 @@ function RootComponent() {
             {navItems.map((item) => (
               <Link
                 key={item.to}
-                to={item.to}
+                to={item.to as any}
                 activeOptions={{ exact: item.exact ?? false }}
                 className="flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-slate-700 hover:bg-slate-100 data-[status=active]:bg-slate-900 data-[status=active]:text-white"
               >
