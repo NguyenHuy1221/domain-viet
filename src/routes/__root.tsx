@@ -111,6 +111,18 @@ function RootShell({ children }: { children: React.ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  const navItems = [
+    { to: "/", label: "Tổng quan", icon: "📊", exact: true },
+    { to: "/domains", label: "Domain", icon: "🌐" },
+    { to: "/customers", label: "Khách hàng", icon: "👥" },
+    { to: "/devs", label: "Dev / Nhân sự", icon: "🧑‍💻" },
+    { to: "/shopify", label: "Shopify", icon: "🛒" },
+    { to: "/wordpress", label: "WordPress", icon: "📝" },
+    { to: "/invoices", label: "Hóa đơn", icon: "🧾" },
+    { to: "/reports", label: "Báo cáo", icon: "📈" },
+    { to: "/settings", label: "Cài đặt", icon: "⚙️" },
+  ] as const;
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen w-full bg-background">
@@ -120,30 +132,16 @@ function RootComponent() {
             <div className="text-xs text-slate-500">Quản lý domain & web</div>
           </div>
           <nav className="flex-1 p-3 space-y-1 text-sm">
-            {[
-              { label: "Tổng quan", icon: "📊", active: true },
-              { label: "Domain", icon: "🌐" },
-              { label: "Khách hàng", icon: "👥" },
-              { label: "Dev / Nhân sự", icon: "🧑‍💻" },
-              { label: "Shopify", icon: "🛒" },
-              { label: "WordPress", icon: "📝" },
-              { label: "Hóa đơn", icon: "🧾" },
-              { label: "Báo cáo", icon: "📈" },
-              { label: "Cài đặt", icon: "⚙️" },
-            ].map((item) => (
-              <a
-                key={item.label}
-                href="#"
-                className={
-                  "flex items-center gap-3 px-3 py-2 rounded-md transition-colors " +
-                  (item.active
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-700 hover:bg-slate-100")
-                }
+            {navItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                activeOptions={{ exact: item.exact ?? false }}
+                className="flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-slate-700 hover:bg-slate-100 data-[status=active]:bg-slate-900 data-[status=active]:text-white"
               >
                 <span className="text-base">{item.icon}</span>
                 <span>{item.label}</span>
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="p-3 border-t flex items-center gap-3">
