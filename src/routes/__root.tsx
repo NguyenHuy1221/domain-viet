@@ -113,7 +113,53 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <div className="flex min-h-screen w-full bg-background">
+        <aside className="hidden md:flex w-60 shrink-0 flex-col border-r bg-white">
+          <div className="px-5 py-4 border-b">
+            <div className="text-lg font-bold text-slate-800">WebManager</div>
+            <div className="text-xs text-slate-500">Quản lý domain & web</div>
+          </div>
+          <nav className="flex-1 p-3 space-y-1 text-sm">
+            {[
+              { label: "Tổng quan", icon: "📊", active: true },
+              { label: "Domain", icon: "🌐" },
+              { label: "Khách hàng", icon: "👥" },
+              { label: "Dev / Nhân sự", icon: "🧑‍💻" },
+              { label: "Shopify", icon: "🛒" },
+              { label: "WordPress", icon: "📝" },
+              { label: "Hóa đơn", icon: "🧾" },
+              { label: "Báo cáo", icon: "📈" },
+              { label: "Cài đặt", icon: "⚙️" },
+            ].map((item) => (
+              <a
+                key={item.label}
+                href="#"
+                className={
+                  "flex items-center gap-3 px-3 py-2 rounded-md transition-colors " +
+                  (item.active
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-700 hover:bg-slate-100")
+                }
+              >
+                <span className="text-base">{item.icon}</span>
+                <span>{item.label}</span>
+              </a>
+            ))}
+          </nav>
+          <div className="p-3 border-t flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-sm font-semibold text-slate-700">
+              MK
+            </div>
+            <div className="text-sm">
+              <div className="font-medium text-slate-800">Minh Khoa</div>
+              <div className="text-xs text-slate-500">Admin</div>
+            </div>
+          </div>
+        </aside>
+        <main className="flex-1 min-w-0">
+          <Outlet />
+        </main>
+      </div>
     </QueryClientProvider>
   );
 }
